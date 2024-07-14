@@ -1,0 +1,56 @@
+################################################################################
+###                          Sway User Configuration                         ###
+################################################################################
+
+### Include Fragments ###
+include /etc/sway/config.d/*
+include ./vars.conf
+include ./inputs/*.conf
+include ./apps/*.conf
+include ./modes/*.conf
+include ./binds.conf
+
+### Background ###
+output * bg $HOME/Pictures/nagai_negi/kessoku_band_crop.jpg fill
+
+## SwayFX ##
+default_dim_inactive        0.10
+dim_inactive_colors.urgent  $peach
+corner_radius               2
+layer_effects               "rofi"            blur enable
+layer_effects               "gtk-layer-shell" blur enable
+blur_radius                 3
+blur_passes                 1
+blur                        enable
+
+## Styling ##
+# Element                border    bg    text   indi       childborder
+client.focused           $flamingo $base $text  $sky       $flamingo
+client.focused_inactive  $lavender $base $text  $lavender  $lavender
+client.unfocused         $lavender $base $text  $lavender  $lavender
+client.urgent            $peach    $base $red   $peach     $peach
+
+## Containers ##
+focus_on_window_activation  smart
+default_orientation         auto
+floating_modifier           $mod  normal
+default_border              pixel 1
+smart_gaps                  inverse_outer
+gaps {
+  horizontal  $hgap
+  vertical    $vgap
+  inner       10
+}
+
+## Cursor ##
+focus_follows_mouse no
+mouse_warping       none
+seat                seat0 hide_cursor 5000
+
+### Startup ###
+bar swaybar_command $waybar_cmd
+exec {
+  swayidle -w
+  gammastep
+  $LBIN/shikane
+}
