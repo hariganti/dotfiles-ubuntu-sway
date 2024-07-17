@@ -9,19 +9,10 @@ include ./inputs/*.conf
 include ./apps/*.conf
 include ./modes/*.conf
 include ./binds.conf
+include ./swayfx.conf
 
 ### Background ###
 output * bg $HOME/Pictures/nagai_negi/kessoku_band_crop.jpg fill
-
-## SwayFX ##
-default_dim_inactive        0.10
-dim_inactive_colors.urgent  $peach
-corner_radius               2
-layer_effects               "rofi"            blur enable
-layer_effects               "gtk-layer-shell" blur enable
-blur_radius                 3
-blur_passes                 1
-blur                        enable
 
 ## Styling ##
 # Element                border    bg    text   indi       childborder
