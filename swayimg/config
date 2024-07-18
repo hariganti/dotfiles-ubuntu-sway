@@ -1,0 +1,4 @@
+[info]
+# mode=off
+full.topleft=none
+full.bottomright=name,format,filesize,imagesize
