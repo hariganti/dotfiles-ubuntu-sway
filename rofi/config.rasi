@@ -1,0 +1,6 @@
+/**
+ *                              Rofi User Config                             
+ */
+
+/* @theme "/home/hari/.local/share/rofi/themes/rounded-nord-dark.rasi" */
+@theme "./default.rasi"
