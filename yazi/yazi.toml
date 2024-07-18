@@ -1,0 +1,75 @@
+################################################################################
+###                             Yazi User Config                             ###
+################################################################################
+
+[manager]
+ratio = [4, 5, 10]
+
+[opener]
+text_edit_term = [
+  {run = 'micro "$@"', desc = 'micro', block = true}
+]
+
+text_edit_term_2 = [
+  {run = 'nano "$@"', desc = 'nano', block = true}
+]
+
+text_edit_app = [
+  {run = 'subl "$@"', desc = 'Sublime Text', block = false, orphan = true}
+]
+
+text_edit_app_2 = [
+  {run = 'subl -n "$@"', desc = 'Sublime Text (New Window)', block = false, orphan = true}
+]
+
+img_view_term = [
+  {run = 'swayimg "$@"', desc = 'Swayimg', block = true}
+]
+
+img_view_app = [
+  {run = 'eog "$@"', desc = 'Image Viewer', block = false, orphan = true}
+]
+
+img_edit_app = [
+  {run = 'gimp "$@" --hold', desc = 'The GIMP', block = false, orphan = true}
+]
+
+img_edit_app_2 = [
+  {run = 'gimp -n "$@"', desc = 'The GIMP (New Window)', block = false, orphan = true}
+]
+
+extract = [
+  {run = 'tar -xf "$@"', desc = 'Extract TAR', block = false}
+]
+
+unzip = [
+  {run = 'unzip "$@"', desc = 'UnZIP', block = false}
+]
+
+pdf_view_term = [
+  {run = 'tdf "$@"', desc = 'tdf', block = true}
+]
+
+pdf_view_app = [
+  {run = 'firefox "$@"', desc = 'Firefox', block = false, orphan = true}
+]
+
+media_view = [
+  {run = 'mpv "$@"', desc = 'MPV', block = false, orphan = true}
+]
+
+[open]
+rules = [
+  {mime = 'text/*'          , use = ['text_edit_term_2' , 'text_edit_app' , 'text_edit_app_2']                  },
+  {mime = '*/json'          , use = ['text_edit_term_2' , 'text_edit_app' , 'text_edit_app_2']                  },
+  {mime = 'image/*'         , use = ['img_view_term'    , 'img_view_app'  , 'img_edit_app', 'img_edit_app_2']   },
+  {mime = '{audio,video}/*' , use = ['media_view']                                                              },
+  {mime = 'application/*zip', use = ['unzip']                                                                   },
+  {name = '*.tar*'          , use = ['extract']                                                                 },
+  {name = '*.pdf'           , use = ['pdf_view_term', 'pdf_view_app']                                           },
+  {name = '*'               , use = ['text_edit_term_2' , 'text_edit_app' , 'text_edit_app_2']                  },
+]
+
+[tasks]
+micro_workers = 16
+macro_workers = 32

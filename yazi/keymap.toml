@@ -1,0 +1,19 @@
+################################################################################
+###                           Yazi User Keybindings                          ###
+################################################################################
+
+[manager]
+prepend_keymap = [
+  {on = ['<C-t>'    ], run = 'shell "$SHELL" --block --confirm' , desc = 'Open shell here'                                  },
+  {on = ['q'        ], run = 'close'                            , desc = 'Close the current tab, or quit if it is last tab' },
+  {on = ['<A-Up>'   ], run = 'seek -1'                          , desc = 'Seek up 1 unit in the preview'                    },
+  {on = ['<A-Down>' ], run = 'seek 1'                           , desc = 'Seek down 1 unit in the preview'                  },
+  {on = ['<Home>'   ], run = 'arrow -99999999'                  , desc = 'Move cursor to the top'                           },
+  {on = ['<End>'    ], run = 'arrow 99999999'                   , desc = 'Move cursor to the bottom'                        },
+  {on = ['c', 'm'   ], run = 'plugin chmod'                     , desc = 'chmod selected file'                              },
+]
+
+[input]
+prepend_keymap = [
+  {on = [ '<Esc>' ], run = 'close', desc = 'Cancel input'}
+]
