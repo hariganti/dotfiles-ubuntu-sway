@@ -1,0 +1,11 @@
+################################################################################
+#                             Swayidle User Config                             #
+################################################################################
+
+### Timeouts ###
+timeout 300 'swaylock -f -C $HOME/.config/swaylock/idle'
+timeout 360 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+timeout 600 'systemctl suspend'
+
+### Behavior ###
+before-sleep 'swaylock -f'
