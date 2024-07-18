@@ -1,0 +1,160 @@
+/**
+ * Waybar Style User Config
+ */
+
+@import "catppuccin-macchiato.css";
+
+*
+{
+  border        : none;
+  border-radius : 2px;
+  font-family   : Roboto, Helvetica, Arial, sans-serif;
+  font-size     : 12px;
+  min-height    : 0;
+}
+
+window#waybar
+{
+  color               : @text;
+  background-color    : @base;
+  border              : 1px solid @mauve;
+/*  border-radius       : 5px;*/
+  transition-property : background-color;
+  transition-duration : .5s;
+}
+
+window#waybar.hidden
+{
+  opacity: 0.1;
+}
+
+tooltip
+{
+  color           : @text;
+  background-color: alpha(@surface0, 0.5);
+}
+
+#workspaces,
+#mode,
+#tray,
+#mpris,
+#battery,
+#clock,
+#cpu,
+#memory,
+#backlight,
+#network,
+#pulseaudio
+{               /* T   R   B   L because CSS makes no sense... */
+  margin        : 0px 5px 0px 5px;
+  padding-left  : 2px;
+  padding-right : 2px;
+}
+
+#workspaces button
+{
+  padding         : 3px 5px 0px 5px; /* Looks bad with default */
+  color           : @text;
+  background-color: transparent;
+  border-bottom   : 3px solid transparent;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover
+{
+  background    : alpha(@mantle, 0.2);
+  border-bottom : 2px solid @sky;
+}
+
+#workspaces button.focused
+{
+  background-color: alpha(@lavender, 0.3);
+}
+
+#workspaces button.urgent
+{
+  color           : @surface0;
+  background-color: @peach;
+}
+
+#mode
+{
+  padding-top     : 3px;
+  color           : @crust;
+  background-color: alpha(@peach, 0.7);
+}
+
+#clock
+{
+  padding-top	: 5px  ;
+  padding-right	: 10px ; /* Extra needed for LHS symmetry */
+}
+
+#battery
+{
+  padding-top: 3px;
+}
+
+@keyframes blink
+{
+  to
+  {
+    color           : @crust;
+    background-color: @red ;
+  }
+}
+
+#battery.critical:not(.charging)
+{
+  color                     : @red;
+  animation-name            : blink;
+  animation-duration        : 0.5s;
+  animation-timing-function : linear;
+  animation-iteration-count : infinite;
+  animation-direction       : alternate;
+}
+
+label:focus
+{
+  background-color: #000000;
+}
+
+#cpu
+{
+  padding-top: 3px;
+}
+
+#memory
+{
+  padding-top: 2px;
+}
+
+#backlight
+{
+  padding-top: 3px;
+}
+
+#network
+{
+  padding-top: 3px;
+}
+
+#network.disconnected
+{
+  background-color: @peach;
+}
+
+#pulseaudio
+{
+  padding-top: 2px;
+}
+
+#mpris
+{
+  padding-top: 2px;
+}
+
+#tray
+{
+  padding-top: 1px;
+}

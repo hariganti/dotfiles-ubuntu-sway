@@ -1,0 +1,103 @@
+/**
+ * Waybar User Config
+ */
+
+{
+  // Position
+  "position"    : "top"   ,
+  "margin-top"  : 10      ,
+  "margin-left" : 10      ,
+  "margin-right": 10      ,
+  "output"      : "eDP-2" ,
+
+  // Layout
+  "modules-left"  : ["sway/workspaces", "tray"    , "sway/mode" ],
+  "modules-center": ["mpris"                                    ],
+  "modules-right" : ["pulseaudio"     , "battery" , "clock"     ],
+
+  // Module Configuration
+  "sway/workspaces": {
+    "disable-scroll": true    ,
+    "all-outputs"   : true    ,
+    "format"        : "{icon}",
+    "format-icons"  : {
+      "1" : "一",
+      "2" : "二",
+      "3" : "三",
+      "4" : "四",
+      "5" : "五",
+      "6" : "六",
+      "7" : "七",
+      "8" : "八",
+      "9" : "九",
+      "10": "十",
+    },
+  },
+  "sway/mode" : {"format" : "<span style=\"italic\">{}</span>"},
+  "tray"      : {"spacing": 10                                },
+  "clock"     : {
+    "format"        : "{:%a %b %d %H:%M}"                 ,
+    "format-alt"    : "{:%Y-%m-%d}"                       ,
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar"      :
+    {
+      "mode"        : "year",
+      "mode-mon-col": 3     ,
+      "weeks-pos"   : "right",
+      "format"      :
+      {
+        "months"  : "<span color='#F4DBD6'><b>{}</b></span>",
+        "weekdays": "<span color='#F0C6C6'><b>{}</b></span>",
+        "days"    : "<span color='#CAD3F5'><b>{}</b></span>",
+        "weeks"   : "<span color='#8BD5CA'><b>#{}</b></span>",
+        "today"   : "<span color='#EE99A0'><b><u>{}</u></b></span>",
+      },
+    },
+  },
+  "cpu"   : {"format": "󰍛  {usage}%" },
+  "memory": {"format": "  {}%"      },
+  "backlight": {
+    "format"      : "{icon} {percent}%"                     ,
+    "format-icons": ["", "", "", "", "", "", "", ""],
+  },
+  "battery": {
+    "interval": 10,
+    "states"  : {
+      "good"    : 100 , // Conditions are less/equal
+      "warning" : 50  , // Good states are hidden, only show below 50%
+      "critical": 10  ,
+    },
+    "format"              : "{icon} {capacity}%"      ,
+    "format-alt"          : "{time} {icon}"           ,
+    "format-good"         : ""                        ,
+    "format-charging-good": ""                        ,
+    "format-plugged-good" : ""                        ,
+    "format-charging"     : "󰚥 {capacity}%"           ,
+    "format-plugged"      : "󰚥 {capacity}%"           ,
+    "format-icons"        : ["󰁺", "󰁼", "󰁾", "󰂀", "󰂂"] ,
+    //      
+  },
+  "network": {
+    "format-wifi"         : "󰖩  {essid}"                 ,
+    "format-ethernet"     : "󰈀  {ipaddr}"                ,
+    "format-linked"       : "󰈀  No IP"                   ,
+    "format-disconnected" : "⚠  Disconnected"            ,
+    "format-alt"          : "{ifname}: {ipaddr}/{cidr}"  ,
+  },
+  "pulseaudio": {
+      "format"              : "{format_source}"                               ,
+      "format-muted"        : "<span color='#ED8796'>󰖁</span>{format_source}" ,
+      "format-source"       : ""                                              ,
+      "format-source-muted" : " <span color='#ED8796'>󰍭</span>"               ,
+      "on-click"            : "pavucontrol"                                   ,
+      "on-click-right"      : "helvum"                                        ,
+      // 󰕾 󰍬
+  },
+  "mpris": {
+    "format"            : "<span color='#A6DA95'>󰐊</span> {dynamic}",
+    "format-paused"     : "<span color='#EED49F'>󰏤</span> {dynamic}",
+    "dynamic-order"     : ["title", "artist"]                       ,
+    "dynamic-len"       : 50                                        ,
+    "dynamic-separator" : " | "                                     ,
+  },
+}
