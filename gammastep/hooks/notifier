@@ -1,0 +1,5 @@
+#! /bin/sh
+case $1 in
+  period-changed)
+    exec notify-send "Gammastep" "Setting period to $3"
+esac
