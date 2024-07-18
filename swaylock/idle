@@ -1,0 +1,48 @@
+### Swaylock(-Effects) User Config ##
+
+# Background
+image=~/Pictures/nagai_negi/kessoku_band_lockscreen.png
+effect-blur=3x3
+
+# Indicator
+indicator
+clock
+#indicator-x-position=125
+#indicator-y-position=100
+line-uses-ring
+
+# Colors
+bs-hl-color=f4dbd6
+caps-lock-bs-hl-color=f4dbd6
+caps-lock-key-hl-color=a6da95
+inside-color=00000000
+inside-clear-color=00000000
+inside-caps-lock-color=00000000
+inside-ver-color=00000000
+inside-wrong-color=00000000
+key-hl-color=a6da95
+layout-bg-color=00000000
+layout-border-color=00000000
+layout-text-color=cad3f5
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+ring-color=b7bdf833
+ring-clear-color=f4dbd633
+ring-caps-lock-color=f5a97f33
+ring-ver-color=8aadf433
+ring-wrong-color=ee99a033
+separator-color=00000000
+# text-color=cad3f5
+text-color=B4BEFE
+text-clear-color=f4dbd6
+text-caps-lock-color=f5a97f
+text-ver-color=8aadf4
+text-wrong-color=ee99a0
+
+# Behavior
+ignore-empty-password
+fade-in=3
+grace=5
