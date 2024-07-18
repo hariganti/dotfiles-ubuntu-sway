@@ -1,0 +1,36 @@
+{
+    "label" : "lock",
+    "action" : "swaylock -f -C $HOME/.config/swaylock/lock",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
+}
+{
+    "label" : "logout",
+    "action" : "wlogout -l $HOME/.config/wlogout/logout -p layer-shell -m 360 -c 10 -b 2",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "shutdown",
+    "action" : "wlogout -l $HOME/.config/wlogout/poweroff -p layer-shell -m 360 -c 10 -b 2",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
+}
+{
+    "label" : "reboot",
+    "action" : "wlogout -l $HOME/.config/wlogout/reboot -p layer-shell -m 360 -c 10 -b 2",
+    "text" : "Reboot",
+    "keybind" : "r"
+}

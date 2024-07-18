@@ -1,0 +1,63 @@
+@import "catppuccin-macchiato.css";
+
+*
+{
+  background-image: none;
+}
+
+window
+{
+  background-color: alpha(@surface0, 0.5);
+}
+
+button
+{
+	background-color: alpha(@surface1, 0.75);
+	border-style: solid;
+	border-width: 1px;
+	border-color: @sky;
+	border-radius: 5px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 25%;
+	color: @text;
+}
+
+/*button:focus, button:active, button:hover {*/
+button:focus, button:active
+{
+	/* Not sure why, but this looks pretty good... */
+	background-color: rgba(76, 86, 106, 0.95);
+}
+
+#lock {
+    background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+
+#logout {
+    background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+
+#suspend {
+    background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"));
+}
+
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}
+
+#reboot {
+    background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}
+
+#confirm {
+    background-image: image(url("/home/hari/Projects/sway_rice/custom_icons/png/confirm.png"));
+}
+
+#cancel {
+    background-image: image(url("/home/hari/Projects/sway_rice/custom_icons/png/cancel.png"));
+}

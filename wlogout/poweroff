@@ -1,0 +1,12 @@
+{
+    "label" : "confirm",
+    "action" : "systemctl poweroff",
+    "text" : "Confirm",
+    "keybind" : "y"
+}
+{
+    "label" : "cancel",
+    "action" : "",
+    "text" : "Cancel",
+    "keybind" : "n"
+}

@@ -1,0 +1,12 @@
+{
+    "label" : "confirm",
+    "action" : "systemctl reboot",
+    "text" : "Confirm",
+    "keybind" : "y"
+}
+{
+    "label" : "cancel",
+    "action" : "",
+    "text" : "Cancel",
+    "keybind" : "n"
+}

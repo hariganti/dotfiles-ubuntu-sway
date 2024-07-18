@@ -1,0 +1,12 @@
+{
+    "label" : "confirm",
+    "action" : "loginctl terminate-user $USER",
+    "text" : "Confirm",
+    "keybind" : "y"
+}
+{
+    "label" : "cancel",
+    "action" : "",
+    "text" : "Cancel",
+    "keybind" : "n"
+}
