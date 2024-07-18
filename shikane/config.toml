@@ -1,0 +1,54 @@
+################################################################################
+#                            Shikane User Config                               #
+################################################################################
+
+### Primary desktop setup with one external monitor ###
+[[profile]]
+name = "Primary Desktop"
+exec = [
+  """
+  notify-send  \
+    -u low     \
+    -a Shikane \
+    -c setting \
+    Shikane \"$SHIKANE_PROFILE_NAME profile applied\"
+  """
+]
+  [[profile.output]]
+  enable        = true
+  search        = ["m=DELL U2719DC", "s=FW01MS2"]
+  mode          = "2560x1440@59.951Hz"
+  position      = "1680,0"
+  scale         = 1.0
+  transform     = "normal"
+  adaptive_sync = false
+
+  [[profile.output]]
+  enable        = true
+  search        = "eDP-2"
+  mode          = "1680x1050@165Hz"
+  position      = "0,575"
+  scale         = 1.0
+  transform     = "normal"
+  adaptive_sync = false
+
+### Laptop screen only ###
+[[profile]]
+name = "Laptop Only"
+exec = [
+  """
+  notify-send  \
+    -u low     \
+    -a Shikane \
+    -c setting \
+    Shikane \"$SHIKANE_PROFILE_NAME profile applied\"
+  """
+]
+  [[profile.output]]
+  enable        = true
+  search        = "eDP-2"
+  mode          = "1920x1200@165Hz"
+  position      = "0,0"
+  scale         = 1.0
+  transform     = "normal"
+  adaptive_sync = false
