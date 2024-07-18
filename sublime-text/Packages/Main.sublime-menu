@@ -1,0 +1,33 @@
+[
+  {
+    "caption": "View",
+    "mnemonic": "V",
+    "id": "view",
+    "children":
+    [
+      // { "caption": "-", "id": "groups" },
+      {
+        "caption": "Layout",
+        "mnemonic": "L",
+        "id": "layout",
+        "children":
+        [
+          {
+            "caption": "Three Pane",
+            "command": "set_layout",
+            "args":
+            {
+              "cols": [0.00, 0.50, 1.00 ],
+              "rows": [0.00, 0.67, 1.00 ],
+              "cells":
+              [
+                [0, 0, 1, 1 ], [1, 0, 2, 2 ],
+                [0, 1, 1, 2 ]    // Same ^
+              ]
+            }
+          }
+        ]
+      },
+    ]
+  }
+]

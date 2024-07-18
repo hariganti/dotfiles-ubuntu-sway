@@ -1,0 +1,20 @@
+[
+  {
+    "keys": ["alt+shift+0"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.00, 0.50, 1.00 ],
+      "rows": [0.00, 0.67, 1.00 ],
+      "cells":
+      [
+        [0, 0, 1, 1 ], [1, 0, 2, 2 ],
+        [0, 1, 1, 2 ]    // Same ^
+      ]
+    }
+  },
+  { "keys": ["ctrl+n"], "command": "new_window" },
+  { "keys": ["ctrl+t"], "command": "new_file" },
+  { "keys": ["ctrl+tab"], "command": "next_view" },
+  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+]
