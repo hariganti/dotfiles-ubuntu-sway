@@ -1,0 +1,31 @@
+################################################################################
+###                          Mako User Configuration                         ###
+################################################################################
+
+### Global ###
+max-history=100
+max-visible=10
+default-timeout=5000
+
+### Style ###
+margin=15
+layer=overlay
+border-radius=2
+
+### Colors ###
+#background-color=#24273ACC
+background-color=#363A4FCC
+text-color=#cad3f5
+border-color=#8aadf4
+progress-color=source #5B6078EE
+
+### Criteria ###
+[urgency=high]
+border-color=#f5a97f
+default-timeout=0
+
+[category=test]
+history=0
+
+[category=setting]
+history=0
