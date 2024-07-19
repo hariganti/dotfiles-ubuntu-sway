@@ -47,7 +47,7 @@ unzip = [
 ]
 
 pdf_view_term = [
-  {run = 'tdf "$@"', desc = 'tdf', block = true}
+  {run = '$HOME/.local/bin/tdf "$@"', desc = 'tdf', block = true}
 ]
 
 pdf_view_app = [
