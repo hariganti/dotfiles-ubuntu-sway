@@ -51,6 +51,11 @@ tooltip
   padding-right : 2px;
 }
 
+#custom-inhib
+{
+  padding: 1px 0px 0px 0px;
+}
+
 #workspaces button
 {
   padding         : 3px 5px 0px 5px; /* Looks bad with default */

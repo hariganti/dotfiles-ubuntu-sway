@@ -1,0 +1,9 @@
+#! /usr/bin/env fish
+
+## TODO: Add preamble
+
+if test (swaymsg -t get_tree | grep -c '\"user\": \"open\"') -gt 0
+  echo 
+else
+  echo -n
+end

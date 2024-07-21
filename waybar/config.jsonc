@@ -11,11 +11,25 @@
   "output"      : "eDP-2" ,
 
   // Layout
-  "modules-left"  : ["sway/workspaces", "tray"    , "sway/mode" ],
-  "modules-center": ["mpris"                                    ],
-  "modules-right" : ["pulseaudio"     , "battery" , "clock"     ],
+  "modules-left"  : ["sway/workspaces" , "tray"         , "sway/mode"         ],
+  "modules-center": ["mpris"                                                  ],
+  "modules-right" : ["pulseaudio"      , "custom/inhib" , "battery" , "clock" ],
 
   // Module Configuration
+  "custom/inhib": {
+    "exec": "$HOME/.config/waybar/scripts/inhibitor",
+    "interval": 60,
+    "signal": 6,
+    "format": "<span color='#ED8796'>{}</span>",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "timeout": 30.5
+  },
   "sway/workspaces": {
     "disable-scroll": true    ,
     "all-outputs"   : true    ,
