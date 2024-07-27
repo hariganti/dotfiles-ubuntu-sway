@@ -18,7 +18,7 @@
   // Module Configuration
   "custom/inhib": {
     "exec": "$HOME/.config/waybar/scripts/inhibitor",
-    "interval": 60,
+    "interval": 30,
     "signal": 6,
     "format": "<span color='#ED8796'>{}</span>",
   },
