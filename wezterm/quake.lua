@@ -6,10 +6,12 @@
 local wezterm = require 'wezterm'
 local common  = require 'helpers.common'
 
--- Build Configuration --
+-- Common Configuration --
 local config = wezterm.config_builder()
 common.apply_to_config(config)
 
-config.tab_bar_at_bottom = true
+-- Specific Configuration --
+config.tab_bar_at_bottom         = true
+config.window_background_opacity = 0.70
 
 return config
