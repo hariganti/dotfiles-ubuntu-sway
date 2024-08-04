@@ -2,25 +2,25 @@
 {
   "variables":
   {
-    "acc_color" : "#363A4F"
+    "--acc_color" : "#363A4F"
   },
   "rules":
   [
     { // Status Bar
       "class"       : "status_bar",
-      "layer0.tint" : "var(acc_color)"
+      "layer0.tint" : "var(--acc_color)"
     },
     { // Find Dialog in Status bar
       "class"       : "panel_control",
-      "layer0.tint" : "var(acc_color)"
+      "layer0.tint" : "var(--acc_color)"
     },
     { // Tabs
       "class"       : "tab_control",
-      "layer0.tint" : "var(acc_color)"
+      "layer0.tint" : "var(--acc_color)"
     },
     { // Tab Bar
       "class"       : "tabset_control",
-      "layer0.tint" : "var(acc_color)"
+      "layer0.tint" : "var(--acc_color)"
     }
   ]
 }
