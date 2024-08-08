@@ -1,0 +1,125 @@
+#! /usr/bin/env fish
+
+set -l gaps   15
+set -l width  300
+set -l height 450
+
+# Get the focused output properties
+set -l output_props         \
+(
+  swaymsg -t get_outputs -r \
+    | jq                    \
+      '..
+        | select(.focused?).rect
+        | .x, .y, .width, .height'
+)
+
+# Calculate output region area in absolute coordinates
+# [x_min, y_min, x_max, y_max]
+set -l output_region                          \
+  $output_props[1]                            \
+  $output_props[2]                            \
+  (math $output_props[1] + $output_props[3])  \
+  (math $output_props[2] + $output_props[4])
+
+# Get the focused output bar properties
+set -l bar_props            \
+(
+  swaymsg -t get_outputs -r \
+    | jq                    \
+      '..
+        | select(.focused?).layer_shell_surfaces.[]
+        | select(.namespace=="waybar").extent
+        | .x, .y, .width, .height'
+)
+
+# Calculate bar keepout area in absolute coordinates
+# [x_min, y_min, x_max, y_max]
+set -l bar_region                                         \
+  (math $bar_props[1] + $output_props[1])                 \
+  (math $bar_props[2] + $output_props[2])                 \
+  (math $bar_props[1] + $bar_props[3] + $output_props[1]) \
+  (math $bar_props[2] + $bar_props[4] + $output_props[2])
+
+# Set output center point
+set -l center_x (math $output_props[3] / 2 + $output_props[1])
+set -l center_y (math $output_props[4] / 2 + $output_props[2])
+
+# Sort horizontal and vertical properties with center point
+set -l hori                                                     \
+  (
+    string join0 $output_region[1 3] $bar_region[1 3] $center_x \
+      | sort -zn                                                \
+      | string split0
+  )
+
+set -l vert                                                     \
+  (
+    string join0 $output_region[2 4] $bar_region[2 4] $center_y \
+      | sort -zn                                                \
+      | string split0
+  )
+
+# Get the index of the center point
+set -l x_idx (contains -i $center_x $hori)
+set -l y_idx (contains -i $center_y $vert)
+
+# Calculate limit indices within the hori and vert arrays
+set -l diff (math min $x_idx - 1, (count $hori) - $x_idx)
+set -l bound[1 3]               \
+  $hori[(math $x_idx - $diff)]  \
+  $hori[(math $x_idx + $diff)]
+
+set -l diff (math min $y_idx - 1, (count $vert) - $y_idx)
+set -l bound[2 4]               \
+  $vert[(math $y_idx - $diff)]  \
+  $vert[(math $y_idx + $diff)]
+
+# Set the anchor coordinate
+switch $argv[1]
+  case 1 # Top Left
+    set coord                   \
+      (math $bound[1] + $gaps)  \
+      (math $bound[2] + $gaps)
+  case 2 # Top Right
+    set coord                           \
+      (math $bound[3] - $width - $gaps) \
+      (math $bound[2] + $gaps)
+  case 3 # Bottom Left
+    set coord                   \
+      (math $bound[1] + $gaps)  \
+      (math $bound[4] - $height - $gaps)
+  case 4 # Bottom Right
+    set coord                           \
+      (math $bound[3] - $width - $gaps) \
+      (math $bound[4] - $height - $gaps)
+  case *
+    return
+end
+
+if not set -q coord
+  echo Positional argument required
+  return
+end
+
+# Get the floating container ID -- LIMITING TO FLOATING CONTAINERS
+# Limitation is to help avoid accidental activation (for now)
+set con_id                  \
+  (
+    swaymsg -t get_tree -r  \
+      | jq                  \
+        '..
+          | select(.type?)
+          | select(.focused? and .type=="floating_con").id'
+  )
+
+if test -z "$con_id"
+  echo Action limited to floating containers
+  return
+end
+
+# Move container
+swaymsg [con_id = $con_id]  resize set width $width px height $height px,\
+                            move absolute position $coord[1] $coord[2]  ,\
+                            mark (string join '' F $argv[1])            ,\
+                            sticky enable
