@@ -57,13 +57,13 @@
     {
       "mode"        : "year",
       "mode-mon-col": 3     ,
-      "weeks-pos"   : "right",
+      "weeks-pos"   : "left",
       "format"      :
       {
         "months"  : "<span color='#F4DBD6'><b>{}</b></span>",
         "weekdays": "<span color='#F0C6C6'><b>{}</b></span>",
         "days"    : "<span color='#CAD3F5'><b>{}</b></span>",
-        "weeks"   : "<span color='#8BD5CA'><b>#{}</b></span>",
+        "weeks"   : "<span color='#8BD5CA'><b>W{}</b></span>",
         "today"   : "<span color='#EE99A0'><b><u>{}</u></b></span>",
       },
     },
