@@ -3,7 +3,7 @@
 ################################################################################
 
 ### Timeouts ###
-timeout  60 '$HOME/.local/bin/dim 1 33'     resume '$HOME/.local/bin/dim 0'
+timeout 120 '$HOME/.local/bin/dim 1 33'     resume '$HOME/.local/bin/dim 0'
 timeout 300 'swaylock -f -C $HOME/.config/swaylock/idle'
 timeout 360 'swaymsg "output * power off"'  resume 'swaymsg "output * power on"'
 timeout 600 'systemctl suspend'
