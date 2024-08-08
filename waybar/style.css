@@ -71,6 +71,11 @@ tooltip
   border-bottom : 2px solid @sky;
 }
 
+#workspaces button.visible
+{
+  background-color: alpha(@lavender, 0.2);
+}
+
 #workspaces button.focused
 {
   background-color: alpha(@lavender, 0.3);
