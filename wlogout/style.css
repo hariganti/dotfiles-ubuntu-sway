@@ -55,9 +55,9 @@ button:focus, button:active
 }
 
 #confirm {
-    background-image: image(url("/home/hari/Projects/sway_rice/custom_icons/png/confirm.png"));
+    background-image: image(url("/home/hari/.local/share/wlogout/icons/confirm.png"));
 }
 
 #cancel {
-    background-image: image(url("/home/hari/Projects/sway_rice/custom_icons/png/cancel.png"));
+    background-image: image(url("/home/hari/.local/share/wlogout/icons/cancel.png"));
 }
