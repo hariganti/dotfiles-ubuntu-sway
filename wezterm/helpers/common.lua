@@ -16,7 +16,7 @@ function module.apply_to_config(config)
   end
 
   config.term                  = 'wezterm'
-  config.enable_kitty_keyboard = true
+--  config.enable_kitty_keyboard = true
 end
 
 return module
