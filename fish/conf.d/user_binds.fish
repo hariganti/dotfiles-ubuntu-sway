@@ -8,7 +8,7 @@
 bind \cw 'delete-or-exit'
 bind \cd 'backward-kill-path-component'
 bind \cf 'neofetch; fish_greeting; echo; commandline -f repaint'
-bind \eL 'commandline -f kill-whole-line; pwd; la; commandline -f repaint'
+bind \eL 'commandline -f kill-whole-line; pwd; la; echo; commandline -f repaint'
 
 # Alt + Backspace
 bind \e\x7F 'backward-kill-line'
