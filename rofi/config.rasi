@@ -2,5 +2,20 @@
  *                              Rofi User Config                             
  */
 
-/* @theme "/home/hari/.local/share/rofi/themes/rounded-nord-dark.rasi" */
+/* Theme */
 @theme "./default.rasi"
+
+/* Configuration */
+configuration {
+  modi:                 "drun,run,filebrowser,window";
+  display-drun:         "APPS";
+  display-run:          "RUN";
+  display-filebrowser:  "FILES";
+  display-window:       "WINDOW";
+  drun-display-format:  "{name}";
+  kb-cancel:            "Escape,!Super_L,!Super_R";
+  kb-mode-next:         "Tab";
+  kb-mode-previous:     "ISO_Left_Tab";
+  kb-element-next:      "";
+  kb-element-prev:      "";
+}
