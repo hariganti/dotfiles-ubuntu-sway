@@ -82,7 +82,7 @@
       "critical": 10  ,
     },
     "format"              : "{icon} {capacity}%"      ,
-    "format-alt"          : "{time} {icon}"           ,
+    "format-alt"          : "{icon} {time}"           ,
     "format-good"         : ""                        ,
     "format-charging-good": ""                        ,
     "format-plugged-good" : ""                        ,
