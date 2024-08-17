@@ -1,8 +1,76 @@
 #! /usr/bin/env fish
 
+# Set defaults
 set -l gaps   15
-set -l width  300
-set -l height 450
+set -l dims   300 450
+set -l marks  '"F1"' '"F2"' '"F3"' '"F4"'
+set -l corner $marks[1]
+set -l center 67
+
+if test (count $argv) -ne 1
+  echo One positional argument required
+  return
+end
+
+# Get the focused output marks
+set -l output_marks \
+(
+  swaymsg -t get_tree -r | jq '.. | select(.focused?).marks.[]'
+)
+
+# Check for active mark within mark set
+for mark in $output_marks
+  if set pos_idx (contains -i $mark $marks)
+    set dims                 \
+    (
+      swaymsg -t get_tree -r \
+        | jq '.. | select(.focused?).rect | .width, .height'
+    )
+
+    break
+  end
+end
+
+# Get the container type
+set con_type \
+(
+  swaymsg -t get_tree -r | jq '.. | select(.focused?).type'
+)
+
+# Check for zero command
+if test "$argv[1]" -eq 0
+  if test (count $pos_idx) -gt 0
+    swaymsg --  mark    --toggle $marks[$pos_idx]  ,\
+                move    position center            ,\
+                resize  set width $center ppt height $center ppt
+    return
+  end
+
+  if test "$con_type" = '"floating_con"'
+    swaymsg floating disable, sticky disable
+  else
+    swaymsg floating  enable          ,\
+            move      position center ,\
+            resize    set width $center ppt height $center ppt
+  end
+  return
+end
+
+# Limit non-reset actions to floating containers
+if test "$con_type" != '"floating_con"'
+  echo Action limited to floating containers
+  return
+end
+
+# Rotate position, if previously set
+if test (count $pos_idx) -gt 0
+  set -l len (count $marks)
+  if test "$argv[1]" -gt 0
+    set corner $marks[(math $pos_idx % $len + 1)]
+  else if test "$argv[1]" -lt 0
+    set corner $marks[(math \($pos_idx + $len - 2\) % $len + 1)]
+  end
+end
 
 # Get the focused output properties
 set -l output_props         \
@@ -23,14 +91,15 @@ set -l output_region                          \
   (math $output_props[2] + $output_props[4])
 
 # Get the focused output bar properties
-set -l bar_props            \
+set -l bar_props                    \
 (
-  swaymsg -t get_outputs -r \
-    | jq                    \
+  swaymsg -t get_outputs -r         \
+    | jq                            \
       '..
         | select(.focused?).layer_shell_surfaces.[]
         | select(.namespace=="waybar").extent
-        | .x, .y, .width, .height'
+        | .x, .y, .width, .height'  \
+    2> /dev/null
 )
 
 # Calculate bar keepout area in absolute coordinates
@@ -76,50 +145,29 @@ set -l bound[2 4]               \
   $vert[(math $y_idx + $diff)]
 
 # Set the anchor coordinate
-switch $argv[1]
-  case 1 # Top Left
-    set coord                   \
-      (math $bound[1] + $gaps)  \
+switch $corner
+  case $marks[1] # Top Left
+    set coord                             \
+      (math $bound[1] + $gaps)            \
       (math $bound[2] + $gaps)
-  case 2 # Top Right
-    set coord                           \
-      (math $bound[3] - $width - $gaps) \
+  case $marks[2] # Top Right
+    set coord                             \
+      (math $bound[3] - $dims[1] - $gaps) \
       (math $bound[2] + $gaps)
-  case 3 # Bottom Left
-    set coord                   \
-      (math $bound[1] + $gaps)  \
-      (math $bound[4] - $height - $gaps)
-  case 4 # Bottom Right
-    set coord                           \
-      (math $bound[3] - $width - $gaps) \
-      (math $bound[4] - $height - $gaps)
+  case $marks[3] # Bottom Right
+    set coord                             \
+      (math $bound[3] - $dims[1] - $gaps) \
+      (math $bound[4] - $dims[2] - $gaps)
+  case $marks[4] # Bottom Left
+    set coord                             \
+      (math $bound[1] + $gaps)            \
+      (math $bound[4] - $dims[2] - $gaps)
   case *
     return
 end
 
-if not set -q coord
-  echo Positional argument required
-  return
-end
-
-# Get the floating container ID -- LIMITING TO FLOATING CONTAINERS
-# Limitation is to help avoid accidental activation (for now)
-set con_id                  \
-  (
-    swaymsg -t get_tree -r  \
-      | jq                  \
-        '..
-          | select(.type?)
-          | select(.focused? and .type=="floating_con").id'
-  )
-
-if test -z "$con_id"
-  echo Action limited to floating containers
-  return
-end
-
 # Move container
-swaymsg [con_id = $con_id]  resize set width $width px height $height px,\
-                            move absolute position $coord[1] $coord[2]  ,\
-                            mark (string join '' F $argv[1])            ,\
-                            sticky enable
+swaymsg resize    set width $dims[1] px height $dims[2] px  ,\
+        move      absolute position $coord[1] $coord[2]     ,\
+        sticky    enable                                    ,\
+        mark      $corner
