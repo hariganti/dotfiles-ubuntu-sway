@@ -1,0 +1,14 @@
+syntax "brainfuck" "\.(bf|b)$"
+magic "brainfuck"
+comment ""
+
+# control flow
+color orange "\["
+color orange "]"
+color red "<"
+color red ">"
+# data manipulation
+color cyan "\+"
+color cyan "-"
+color brightgreen ","
+color brightgreen "\."

@@ -1,0 +1,15 @@
+# Syntax Highlighting
+include "~/.config/nano/syntax/*.nanorc"
+# include "~/.config/nano/syntax/catppuccin-macchiatto/*.nanorc"
+
+# Settings
+set guidestripe 81
+set tabstospaces
+set constantshow
+set linenumbers
+set autoindent
+set smarthome
+set tabsize 2
+set softwrap
+set atblanks
+set mouse

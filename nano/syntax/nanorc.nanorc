@@ -1,0 +1,78 @@
+## Here is an example for nanorc files.
+##
+syntax "Nanorc" "\.?nanorc$"
+comment "#"
+
+## Possible invalid parameters
+color brightred "^[[:space:]]*((un)?set|include|syntax|i?color).*$"
+
+## Basic colors
+color red       "\<red\>"
+color green     "\<green\>"
+color blue      "\<blue\>"
+color magenta   "\<magenta\>"
+color yellow    "\<yellow\>"
+color cyan      "\<cyan\>"
+color white     "\<white\>"
+color black     "\<black\>"
+## Light/bright colors
+color lightred          "\<(light|bright)red\>"
+color lightgreen        "\<(light|bright)green\>"
+color lightblue         "\<(light|bright)blue\>"
+color lightmagenta      "\<(light|bright)magenta\>"
+color lightyellow       "\<(light|bright)yellow\>"
+color lightcyan         "\<(light|bright)cyan\>"
+color lightwhite        "\<(light|bright)white\>"
+color lightblack        "\<(light|bright)black\>" "\<gr[ea]y\>"
+## 256 colors
+color pink      "\<pink\>"
+color purple    "\<purple\>"
+color mauve     "\<mauve\>"
+color lagoon    "\<lagoon\>"
+color mint      "\<mint\>"
+color lime      "\<lime\>"
+color peach     "\<peach\>"
+color orange    "\<orange\>"
+color latte     "\<latte\>"
+color rosy      "\<rosy\>"
+color beet      "\<beet\>"
+color plum      "\<plum\>"
+color sea       "\<sea\>"
+color sky       "\<sky\>"
+color slate     "\<slate\>"
+color teal      "\<teal\>"
+color sage      "\<sage\>"
+color brown     "\<brown\>"
+color ocher     "\<ocher\>"
+color sand      "\<sand\>"
+color tawny     "\<tawny\>"
+color brick     "\<brick\>"
+color crimson   "\<crimson\>"
+color normal    "\<normal\>"
+## hex color
+color green     "#[0-9][0-9][0-9]"
+
+## Keywords
+color green "^[[:space:]]*(set|unset|syntax|header|magic|formatter|linter|comment|tabgives|include|extendssyntax|bind|unbind)\>"
+color white "\<(bold|italic)\>" ","
+color magenta  "^[[:space:]]*i?color\>" "\<(start|end)="
+#color yellow   "^[[:space:]]*(set|unset)[[:space:]]+(errorcolor|functioncolor|keycolor|numbercolor|selectedcolor|statuscolor|stripecolor|titlecolor)[[:space:]]+(bright|light)?(white|black|red|blue|green|yellow|magenta|cyan|normal)?(,(white|black|red|blue|green|yellow|magenta|cyan|normal))?\>"
+
+## Valid options
+## run: arr=($(man nanorc | grep "    set " | awk '{print $2}')); echo "$(IFS='|'; echo "${arr[*]}")"
+color brightgreen "^[[:space:]]*(set|unset)[[:space:]]+(afterends|allow_insecure_backup|atblanks|autoindent|backup|backupdir|boldtext|bookstyle|brackets|breaklonglines|casesensitive|constantshow|cutfromcursor|emptyline|errorcolor|fill|functioncolor|guidestripe|historylog|indicator|jumpyscrolling|keycolor|linenumbers|locking|magic|matchbrackets|minibar|minicolor|mouse|multibuffer|noconvert|nohelp|nonewlines|nowrap|numbercolor|operatingdir|positionlog|preserve|promptcolor|punct|quickblank|quotestr|rawsequences|rebinddelete|regexp|saveonexit|scrollercolor|selectedcolor|showcursor|smarthome|softwrap|speller|spotlightcolor|stateflags|statuscolor|stripecolor|tabsize|tabstospaces|titlecolor|trimblanks|unix|whitespace|wordbounds|wordchars|zap|zero)\>"
+
+## Strings
+#icolor white ""([^"]|\\.)*""
+color white "[[:blank:]](start=)?".+""
+
+## Comments
+## excluding hex color
+color brightblue "^[[:space:]]*#.*$" "[[:space:]]#.{0,2}[^[:xdigit:]].*$"
+color cyan "^[[:space:]]*##.*$"
+
+## Reminders
+color brightwhite,yellow "\<(FIXME|TODO|XXX)\>"
+
+## Trailing whitespace
+color ,green "[[:space:]]+$"

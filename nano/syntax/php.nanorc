@@ -1,0 +1,65 @@
+## PHP Syntax Highlighting
+syntax "PHP" "\.php[2345s~]?$|\.module$"
+header "^#!.*php"
+magic "PHP script"
+comment "//"
+
+# Default
+color white start="<\?(php|=)?" end="\?>"
+# Constructs
+color brightblue "(class|extends|goto) ([a-zA-Z0-9_]*)"
+color brightblue "\<(var|class|function|echo|case|break|default|exit|switch|if|else|elseif|endif|foreach|endforeach|@|while|public|private|protected|return|const|static|extends|as|array|require|include|require_once|include_once|define|do|continue|declare|goto|print|in|namespace|use)\>"
+color brightblue "[a-zA-Z0-9_]+:"
+# Variables
+#color green "\$[a-zA-Z_0-9$]*|[=!<>]"
+#color green "\->[a-zA-Z_0-9$]*|[=!<>]"
+color green "\$[a-zA-Z_0-9]*"
+color green "\->[a-zA-Z_0-9]*"
+# Functions
+color brightblue "([a-zA-Z0-9_-]*)\("
+# Special values
+color brightmagenta "\<(true|false|null|TRUE|FALSE|NULL)\>"
+# Special Characters
+color yellow "[.,{}();]"
+color cyan "\["
+color cyan "\]"
+# Numbers
+color magenta "\<[+-]?([0-9]*\.)?[0-9]+([eE][+-]?[0-9]+)?\>"
+color magenta "0x[0-9a-zA-Z]*"
+# Special Variables
+color brightblue "(\$this|parent::|self::|\$this->)"
+color magenta ";"
+# Comparison operators
+color yellow "(<|>)"
+# Assignment operator
+color brightblue "="
+# Bitwise operators
+color magenta "(&|\||\^)"
+color magenta "(<<|>>)"
+# Comparison operators
+color yellow "(==|===|!=|<>|!==|<=|>=|<=>)"
+# Logical Operators
+color yellow "\<(and|or|xor)\>" "(!|&&|\|\|)"
+# SRO and other operators
+color cyan "(\;\;|::|=>|->)"
+# Double quoted STRINGS!
+color red "\"([^"\]|\\.)*\""
+# Single quoted string
+color red "'([^'\]|\\.)*'"
+# Heredoc (typically ends with a semicolon).
+color red start="<<<[\"]?[A-Z][A-Z0-9_]*[\"]?" end="^[A-Z][A-Z0-9_]*;"
+# Inline Variables
+color white "\{\$[^}]*\}"
+# Online Comments
+color brightyellow "(^|[[:blank:]])(#.*|//.*)$"
+# PHP Tags
+color red "(<\?(php)?|\?>)"
+# General HTML
+color red start="\?>" end="<\?(php|=)?"
+# trailing whitespace
+color ,green "[[:space:]]+$"
+# multi-line comments
+color brightyellow start="/\*" end="\*/"
+color brightwhite,cyan "\<(FIXME|TODO|XXX)\>"
+# Nowdoc
+color red start="<<<'[A-Z][A-Z0-9_]*'" end="^[A-Z][A-Z0-9_]*;"
