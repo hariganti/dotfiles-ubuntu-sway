@@ -4,8 +4,8 @@
 set -l gaps   15
 set -l dims   300 450
 set -l marks  '"F1"' '"F2"' '"F3"' '"F4"'
-set -l corner $marks[1]
 set -l center 67
+set -l corner $marks[1]
 
 if test (count $argv) -ne 1
   echo One positional argument required
@@ -14,28 +14,23 @@ end
 
 # Get the focused output marks
 set -l output_marks \
-(
-  swaymsg -t get_tree -r | jq '.. | select(.focused?).marks.[]'
-)
+  (swaymsg -t get_tree -r | jq '.. | select(.focused?).marks.[]')
 
 # Check for active mark within mark set
 for mark in $output_marks
   if set pos_idx (contains -i $mark $marks)
     set dims                 \
-    (
-      swaymsg -t get_tree -r \
-        | jq '.. | select(.focused?).rect | .width, .height'
-    )
+      (
+        swaymsg -t get_tree -r \
+          | jq '.. | select(.focused?).rect | .width, .height'
+      )
 
     break
   end
 end
 
 # Get the container type
-set con_type \
-(
-  swaymsg -t get_tree -r | jq '.. | select(.focused?).type'
-)
+set con_type (swaymsg -t get_tree -r | jq '.. | select(.focused?).type')
 
 # Check for zero command
 if test "$argv[1]" -eq 0
@@ -56,7 +51,7 @@ if test "$argv[1]" -eq 0
   return
 end
 
-# Limit non-reset actions to floating containers
+# Limit non-zero actions to floating containers
 if test "$con_type" != '"floating_con"'
   echo Action limited to floating containers
   return
@@ -74,13 +69,10 @@ end
 
 # Get the focused output properties
 set -l output_props         \
-(
-  swaymsg -t get_outputs -r \
-    | jq                    \
-      '..
-        | select(.focused?).rect
-        | .x, .y, .width, .height'
-)
+  (
+    swaymsg -t get_outputs -r \
+      | jq '.. | select(.focused?).rect | .x, .y, .width, .height'
+  )
 
 # Calculate output region area in absolute coordinates
 # [x_min, y_min, x_max, y_max]
@@ -91,16 +83,15 @@ set -l output_region                          \
   (math $output_props[2] + $output_props[4])
 
 # Get the focused output bar properties
-set -l bar_props                    \
-(
-  swaymsg -t get_outputs -r         \
-    | jq                            \
-      '..
-        | select(.focused?).layer_shell_surfaces.[]
-        | select(.namespace=="waybar").extent
-        | .x, .y, .width, .height'  \
-    2> /dev/null
-)
+set -l bar_props              \
+  (
+    swaymsg -t get_outputs -r \
+      | jq                    \
+        '..
+          | select(.focused?).layer_shell_surfaces.[]
+          | select(.namespace=="waybar").extent
+          | .x, .y, .width, .height'
+  )
 
 # Calculate bar keepout area in absolute coordinates
 # [x_min, y_min, x_max, y_max]
