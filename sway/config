@@ -41,6 +41,7 @@ seat                seat0 hide_cursor 5000
 ### Startup ###
 bar swaybar_command $waybar_cmd
 exec {
+  mate-polkit
   swayidle -w
   gammastep
   $LBIN/shikane
