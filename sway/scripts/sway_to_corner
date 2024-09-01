@@ -1,5 +1,43 @@
 #! /usr/bin/env fish
 
+################################################################################
+###                             Sway To-Corner                               ###
+################################################################################
+# Fish script that provides a way to move containers to the output corners     #
+# without overlapping the bar and without any default gaps to output edge.     #
+# Provides three main functions:                                               #
+#   - "Zero" function makes a tiled container into a floating container, or    #
+#     moves a corner floating container back to the center
+#   - Rotate CW rotates the corner floating container clockwise through the    #
+#     corners of the output, or moves a centered floating container to the     #
+#     first corner                                                             #
+#   - Rotate CCW does the above, but counterclockwise (or anticlockwise)       #
+#                                                                              #
+# The basic premise is to check the current state of the container, apply the  #
+# requested action, if possible, and mark the container with the state. The    #
+# salient feature of this script is that it smartly avoids the waybar. It does #
+# this by finding the "centermost" position based on all possible boundaries.  #
+# For example, with a bar at the top, there are four boundaries between the    #
+# output and the bar:                                                          #
+#                                                                              #
+#  |------1------------------------------------------------------------------| #
+#  |                                                                         | #
+#  | |----2----------------------------------------------------------------| | #
+#  1 2                                bar                                  3 4 #
+#  | |----3----------------------------------------------------------------| | #
+#  etc.                                                                        #
+#                                                                              #
+# There is a fourth boundary at the bottom as well. The script works outward   #
+# from the middle of all these boundaries (vertical and horizontal) and uses   #
+# the outermost pair as the boundaries to find the corners. For example, the   #
+# first and fourth are the outermost horizontal boundaries, but the outermost  #
+# vertical pair is actually the third and fourth since stepping "out" once     #
+# more would require a "0" and "5" pair, which doesn't exist. This allows the  #
+# script to account for bars in just about any position, with varying success  #
+################################################################################
+#                                Hari Ganti | 2024/08/17 | hariganti@gmail.com #
+################################################################################
+
 # Set defaults
 set -l gaps   15
 set -l dims   300 450
@@ -19,7 +57,7 @@ set -l output_marks \
 # Check for active mark within mark set
 for mark in $output_marks
   if set pos_idx (contains -i $mark $marks)
-    set dims                 \
+    set dims \
       (
         swaymsg -t get_tree -r \
           | jq '.. | select(.focused?).rect | .width, .height'
@@ -35,8 +73,8 @@ set con_type (swaymsg -t get_tree -r | jq '.. | select(.focused?).type')
 # Check for zero command
 if test "$argv[1]" -eq 0
   if test (count $pos_idx) -gt 0
-    swaymsg --  mark    --toggle $marks[$pos_idx]  ,\
-                move    position center            ,\
+    swaymsg --  mark    --toggle $marks[$pos_idx],\
+                move    position center          ,\
                 resize  set width $center ppt height $center ppt
     return
   end
@@ -68,7 +106,7 @@ if test (count $pos_idx) -gt 0
 end
 
 # Get the focused output properties
-set -l output_props         \
+set -l output_props \
   (
     swaymsg -t get_outputs -r \
       | jq '.. | select(.focused?).rect | .x, .y, .width, .height'
@@ -83,7 +121,7 @@ set -l output_region                          \
   (math $output_props[2] + $output_props[4])
 
 # Get the focused output bar properties
-set -l bar_props              \
+set -l bar_props \
   (
     swaymsg -t get_outputs -r \
       | jq                    \
@@ -106,14 +144,14 @@ set -l center_x (math $output_props[3] / 2 + $output_props[1])
 set -l center_y (math $output_props[4] / 2 + $output_props[2])
 
 # Sort horizontal and vertical properties with center point
-set -l hori                                                     \
+set -l hori \
   (
     string join0 $output_region[1 3] $bar_region[1 3] $center_x \
       | sort -zn                                                \
       | string split0
   )
 
-set -l vert                                                     \
+set -l vert \
   (
     string join0 $output_region[2 4] $bar_region[2 4] $center_y \
       | sort -zn                                                \
