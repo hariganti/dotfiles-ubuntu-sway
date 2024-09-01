@@ -1,0 +1,28 @@
+#! /usr/bin/env fish
+
+################################################################################
+###                                  Inhibit                                 ###
+################################################################################
+# Set an idle inhibitor on the focused container or remove an active inhibitor #
+################################################################################
+#                                Hari Ganti | 2024/08/17 | hariganti@gmail.com #
+################################################################################
+
+# Check for existing user-set inhibitors
+set -l inhib \
+  (
+    swaymsg -t get_tree -r  \
+      | jq -r '..
+        | select(.type?)
+        | select(.idle_inhibitors.user=="open")
+        | .id'
+  )
+
+# Toggle the inhibitor state
+if test (count $inhib) -eq 0
+  swaymsg inhibit_idle open
+  kill -40 (pgrep waybar)
+else
+  swaymsg [con_id = $inhib] inhibit_idle fullscreen
+  kill -40 (pgrep waybar)
+end
