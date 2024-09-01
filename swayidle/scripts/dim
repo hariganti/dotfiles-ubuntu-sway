@@ -1,0 +1,29 @@
+#! /usr/bin/env fish
+
+################################################################################
+###                                   Dim                                    ###
+################################################################################
+# Fish script to dim the display and restore it to the original value          #
+################################################################################
+#                                Hari Ganti | 2024/08/17 | hariganti@gmail.com #
+################################################################################
+
+set -l curfile $HOME/.cache/settings/cur_brightness
+
+if test (count $argv) -lt 1
+  echo 'Script requires one or two arguments'
+  echo 'dim <0 or 1> [<VAL>]'
+  echo '<VAL> is only needed if the first argument is "1"'
+  return
+end
+
+if test "$argv[1]" -eq 0
+  if test -e "$curfile"
+    brightnessctl set (cat $curfile) > /dev/null
+  else
+    brightnessctl set 127 > /dev/null
+  end
+else if test "$argv[1]" -eq 1
+  brightnessctl get > $curfile
+  brightnessctl set $argv[2] > /dev/null
+end
