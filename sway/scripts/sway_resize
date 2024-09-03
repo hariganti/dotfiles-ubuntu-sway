@@ -1,0 +1,91 @@
+#! /usr/bin/env fish
+
+################################################################################
+###                               Sway Resize                                ###
+################################################################################
+# Fish script that provides a way to cycle container sizes within the parent   #
+# container. It will resize according to how the focused container is split    #
+# in the parent context. Typically, this will be horizontal, but if a vertical #
+# split was performed, then the resizing will be done vertically               #
+################################################################################
+#                                Hari Ganti | 2024/09/02 | hariganti@gmail.com #
+################################################################################
+
+### TODO ###
+# Include gaps within dimensions
+
+# Set defaults
+set -l marks  '"T1"' '"T2"' '"T3"' '"T4"' '"T5"'
+set -l hori   '"horizontal"'
+set -l vert   '"vertical"'
+set -l size   $marks[3]
+
+if test (count $argv) -ne 1
+  echo One positional argument required
+  return
+end
+
+# Get the focused output marks
+set -l output_marks \
+  (swaymsg -t get_tree -r | jq '.. | select(.focused?).marks.[]')
+
+set pos_idx (contains -i $size $marks)
+for mark in $output_marks
+  if set pos_idx (contains -i $mark $marks)
+    break
+  end
+end
+
+# Get container orientation
+set orientation \
+  (
+    swaymsg -t get_tree -r \
+      | jq '.. | select(.type?) | select(.nodes.[].focused==true).orientation'
+  )
+
+if test "$orientation" = "$hori"
+  set axis width
+else if test "$orientation" = "$vert"
+  set axis height
+end
+
+# Get number of objects in current parent context
+set -l cons \
+  (
+    swaymsg -t get_tree -r \
+      | jq '.. 
+        | select(.type?)
+        | select(.nodes.[].focused==true).nodes
+        | length'
+  )
+
+# Check for zero command
+if test "$argv[1]" -eq 0
+  if test (count $pos_idx) -gt 0
+    swaymsg -- mark --toggle $marks[$pos_idx]
+  end
+
+  swaymsg resize set $axis (math 100 / $cons) ppt
+  return
+end
+
+# Adjust position
+set size $marks[(math min (count $marks), (math max 1, $pos_idx + $argv[1]))]
+
+# Set the size
+switch $size
+  case $marks[1]
+    swaymsg resize set $axis 25 ppt
+  case $marks[2]
+    swaymsg resize set $axis 33 ppt
+  case $marks[3]
+    swaymsg resize set $axis 50 ppt
+  case $marks[4]
+    swaymsg resize set $axis 67 ppt
+  case $marks[5]
+    swaymsg resize set $axis 75 ppt
+  case *
+    return
+end
+
+swaymsg mark $size
