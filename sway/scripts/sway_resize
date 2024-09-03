@@ -77,11 +77,11 @@ switch $size
   case $marks[1]
     swaymsg resize set $axis 25 ppt
   case $marks[2]
-    swaymsg resize set $axis 33 ppt
+    swaymsg resize set $axis 37 ppt
   case $marks[3]
     swaymsg resize set $axis 50 ppt
   case $marks[4]
-    swaymsg resize set $axis 67 ppt
+    swaymsg resize set $axis 63 ppt
   case $marks[5]
     swaymsg resize set $axis 75 ppt
   case *
