@@ -81,14 +81,15 @@
       "warning" : 50  , // Good states are hidden, only show below 50%
       "critical": 10  ,
     },
-    "format"              : "{icon} {capacity}%"      ,
-    "format-alt"          : "{icon} {time}"           ,
-    "format-good"         : ""                        ,
-    "format-charging-good": ""                        ,
-    "format-plugged-good" : ""                        ,
-    "format-charging"     : "󰚥 {capacity}%"           ,
-    "format-plugged"      : "󰚥 {capacity}%"           ,
+    "format"              : "{icon} {capacity}%",
+    "format-alt"          : "{icon} {time}",
+    "format-good"         : "",
+    "format-charging-good": "",
+    "format-plugged-good" : "",
+    "format-charging"     : "󰚥 {capacity}%",
+    "format-plugged"      : "󰚥 {capacity}%",
     "format-icons"        : ["󰁺", "󰁼", "󰁾", "󰂀", "󰂂"] ,
+    "format-time"         : "{H}:{m}",
     //      
   },
   "network": {
