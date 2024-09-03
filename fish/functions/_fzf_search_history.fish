@@ -25,7 +25,7 @@ function _fzf_search_history --description "Search command history. Replace the 
         $fzf_history_opts
 
     # Delinate commands throughout pipeline using null rather than newlines because commands can be multi-line
-    set -f commands_selected(
+    set -f commands_selected (
         builtin history                                 \
             --null                                      \
             --show-time="$fzf_history_time_format │ "   \
