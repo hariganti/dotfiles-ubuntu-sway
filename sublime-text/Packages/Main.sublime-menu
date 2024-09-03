@@ -13,7 +13,7 @@
         "children":
         [
           {
-            "caption": "Three Pane",
+            "caption": "Three Pane (Wide)",
             "command": "set_layout",
             "args":
             {
@@ -25,7 +25,21 @@
                                [1, 1, 2, 2 ]
               ]
             }
-          }
+          },
+          {
+            "caption": "Three Pane (Narrow)",
+            "command": "set_layout",
+            "args":
+            {
+              "cols": [0.00, 0.50, 1.00 ],
+              "rows": [0.00, 0.67, 1.00 ],
+              "cells":
+              [
+                [0, 0, 2, 1 ],
+                [0, 1, 1, 2 ], [1, 1, 2, 2 ]
+              ]
+            }
+          },
         ]
       },
     ]
