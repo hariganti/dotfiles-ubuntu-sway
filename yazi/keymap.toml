@@ -21,9 +21,13 @@ prepend_keymap = [
   {on = ['<Home>'   ], run = ['arrow -99999999'                 ], desc = 'Move cursor to the top'                          },
   {on = ['<End>'    ], run = ['arrow 99999999'                  ], desc = 'Move cursor to the bottom'                       },
   {on = ['<Tab>'    ], run = ['select --state=none', 'arrow 1'  ], desc = 'Toggle the current selection state'              },
+  {on = ['<F2>'     ], run = ['rename --cursor=before_ext'      ], desc = 'Rename selected file(s)'                         },
+  {on = ['<Delete>' ], run = ['remove'                          ], desc = 'Trash selected file(s)'                          },
 ]
 
 [input]
 prepend_keymap = [
   {on = ['<Esc>'], run = 'close', desc = 'Cancel input'},
 ]
+
+
