@@ -1,7 +1,7 @@
 #! /usr/bin/env fish
 
 ################################################################################
-###                             Sway To-Corner                               ###
+###                                 To Corner                                ###
 ################################################################################
 # Fish script that provides a way to move containers to the output corners     #
 # without overlapping the bar and without any default gaps to output edge.     #
@@ -34,6 +34,10 @@
 # vertical pair is actually the third and fourth since stepping "out" once     #
 # more would require a "0" and "5" pair, which doesn't exist. This allows the  #
 # script to account for bars in just about any position, with varying success  #
+#                                                                              #
+# Usage:                                                                       #
+#   to_corner <n>                                                              #
+#     n - 0 for zero function, positive number to rotate cw, negative for ccw  #
 ################################################################################
 #                                Hari Ganti | 2024/08/17 | hariganti@gmail.com #
 ################################################################################

@@ -1,7 +1,7 @@
 #! /usr/bin/env fish
 
 ################################################################################
-###                               Sway Resize                                ###
+###                                  Resize                                  ###
 ################################################################################
 # Fish script that provides a way to cycle container sizes within the parent   #
 # container. It will resize according to how the focused container is split    #
