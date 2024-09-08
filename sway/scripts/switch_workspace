@@ -1,0 +1,115 @@
+#! /usr/bin/env fish
+
+################################################################################
+###                             Switch Workspace                             ###
+################################################################################
+# The default behavior from workspace prev/next(_on_output) isn't bad, but it  #
+# this script creates new behavior for workspace switching, which can help on  #
+# setups with multiple monitors. The desired behavior is the following:        #
+#   General                                                                    #
+#     - If target is not visible on any output, move it to the current output  #
+#     - If it is visible on an output, swap the workspaces                     #
+#     - If target is self, do nothing                                          #
+#   Next Workspace                                                             #
+#     - If at the last, non-empty workspace, create a new one at the end       #
+#     - Wrap to beginning                                                      #
+#   Prev Workspace                                                             #
+#     - If (workspace - 1) does not exist, create and focus it                 #
+#     - Wrap to end                                                            #
+#                                                                              #
+# Usage:                                                                       #
+#   switch_workspace <n>                                                       #
+#     n - Positive number to move to next, negative number to move to prev     #
+################################################################################
+#                                Hari Ganti | 2024/09/08 | hariganti@gmail.com #
+################################################################################
+
+### TODO ###
+# Find a way to handle floating containers better... They tend to break things
+
+if test (count $argv) -ne 1
+  echo One positional argument required
+  return
+end
+
+# Get the current workspace number
+set -l cur (swaymsg -t get_workspaces -r | jq '.. | select(.focused?).num')
+
+echo $cur
+
+# Get all current workspaces in a sorted list
+set -l spaces \
+  (
+    swaymsg -t get_workspaces -r \
+      | jq '.. | select(.type? and .type == "workspace").num'
+  )
+
+set -l spaces (string join0 $spaces | sort -zn | string split0)
+
+echo $spaces
+
+# Perform selected action
+if test "$argv[1]" -gt 0
+  # Check if cur is at end
+  if test (contains -i $cur $spaces) -eq (count $spaces)
+    # Check if workspace is empty
+    set -l nodes \
+      (
+        swaymsg -t get_workspaces -r \
+          | jq '.. | select(.focused?).representation'
+      )
+
+    if test "$nodes" = "null"
+      # Wrap to beginning
+      echo Moving to beginning
+      set target $spaces[1]
+    else
+      # Create new workspace at end
+      echo Making new at end
+      set target (math $cur + 1)
+    end
+  else
+    echo Moving to next
+    set target $spaces[(math $cur + 1)]
+  end
+else if test "$argv[1]" -lt 0
+  # Check if cur is at beginning
+  if test "$cur" -eq 1
+    # Wrap to end
+    echo Moving to end
+    set target $spaces[-1]
+  else
+    # Move to numerically prior workspace
+    echo Moving to previous
+    set target (math $cur - 1)
+  end
+end
+
+echo $target
+
+set jquery \
+  (
+    string join ''                      \
+      '.. | select(.type? and .num == ' \
+      $target                           \
+      ') | .visible, .output'
+  )
+
+set vis (swaymsg -t get_workspaces -r | jq $jquery)
+
+if test (count $vis) -eq 0
+  # Create workspace
+  swaymsg workspace number $target
+else
+  # Move workspace to current output
+  swaymsg [workspace = $target] move workspace to output current
+
+  # Check if moved workspace was visible
+  if test "$vis[1]" = "true"
+    # Make the move an output swap
+    swaymsg [workspace = $cur] move workspace to output $vis[2]
+  end
+
+  # Refocus after potential swaps
+  swaymsg [workspace = $target] focus
+end
