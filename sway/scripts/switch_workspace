@@ -9,7 +9,6 @@
 #   General                                                                    #
 #     - If target is not visible on any output, move it to the current output  #
 #     - If it is visible on an output, swap the workspaces                     #
-#     - If target is self, do nothing                                          #
 #   Next Workspace                                                             #
 #     - If at the last, non-empty workspace, create a new one at the end       #
 #     - Wrap to beginning                                                      #
@@ -35,8 +34,6 @@ set -l cur \
     swaymsg -t get_workspaces -r \
       | jq '.. | select(.focused? and .type == "workspace").num'
   )
-
-echo $cur >> $HOME/tmp
 
 # Get all current workspaces in a sorted list
 set -l spaces \
