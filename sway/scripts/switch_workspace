@@ -24,18 +24,19 @@
 #                                Hari Ganti | 2024/09/08 | hariganti@gmail.com #
 ################################################################################
 
-### TODO ###
-# Find a way to handle floating containers better... They tend to break things
-
 if test (count $argv) -ne 1
   echo One positional argument required
   return
 end
 
 # Get the current workspace number
-set -l cur (swaymsg -t get_workspaces -r | jq '.. | select(.focused?).num')
+set -l cur \
+  (
+    swaymsg -t get_workspaces -r \
+      | jq '.. | select(.focused? and .type == "workspace").num'
+  )
 
-echo $cur
+echo $cur >> $HOME/tmp
 
 # Get all current workspaces in a sorted list
 set -l spaces \
@@ -45,8 +46,6 @@ set -l spaces \
   )
 
 set -l spaces (string join0 $spaces | sort -zn | string split0)
-
-echo $spaces
 
 # Perform selected action
 if test "$argv[1]" -gt 0
@@ -85,17 +84,13 @@ else if test "$argv[1]" -lt 0
   end
 end
 
-echo $target
-
-set jquery \
+set -l jquery \
   (
-    string join ''                      \
-      '.. | select(.type? and .num == ' \
-      $target                           \
-      ') | .visible, .output'
+    string join '' \
+      '.. | select(.type? and .num == ' $target ') | .visible, .output'
   )
 
-set vis (swaymsg -t get_workspaces -r | jq $jquery)
+set -l vis (swaymsg -t get_workspaces -r | jq $jquery)
 
 if test (count $vis) -eq 0
   # Create workspace
@@ -111,5 +106,5 @@ else
   end
 
   # Refocus after potential swaps
-  swaymsg [workspace = $target] focus
+  swaymsg workspace number $target
 end
