@@ -27,8 +27,10 @@
         ]
     }
   },
-  { "keys": ["ctrl+n"], "command": "new_window" },
-  { "keys": ["ctrl+t"], "command": "new_file" },
-  { "keys": ["ctrl+tab"], "command": "next_view" },
-  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+  { "keys": ["ctrl+n"],         "command": "new_window"},
+  { "keys": ["ctrl+t"],         "command": "new_file"},
+  { "keys": ["ctrl+tab"],       "command": "next_view"},
+  { "keys": ["ctrl+shift+tab"], "command": "prev_view"},
+  { "keys": ["ctrl+pagedown"],  "command": "next_view", "args": {"extend": true}},
+  { "keys": ["ctrl+pageup"],    "command": "prev_view", "args": {"extend": true}},
 ]

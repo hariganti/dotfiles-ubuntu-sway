@@ -239,7 +239,7 @@
 	// This setting may also be set to a number between 0.0 and 1.0 to specify
 	// how much scrolling past the end of the buffer should be allowed. 0.5
 	// scrolls halfway and 0.0 is the same as false.
-	"scroll_past_end": 0.1,
+	"scroll_past_end": 0.25,
 
 	// Set the number of context lines to show when scrolling to reveal. This
 	// affects all selection changes, like selection dragging, page-up/page-down
@@ -361,7 +361,7 @@
 
 	// Set to true to ensure the last line of the file ends in a newline
 	// character when saving
-	"ensure_newline_at_eof_on_save": false,
+	"ensure_newline_at_eof_on_save": true,
 
 	// Set to true to automatically save files when switching to a different file
 	// or application
