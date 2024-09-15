@@ -44,5 +44,6 @@ exec {
   mate-polkit
   swayidle -w
   gammastep
-  $LBIN/shikane
+  shikane
+  $kmonad_toggle_cmd
 }
