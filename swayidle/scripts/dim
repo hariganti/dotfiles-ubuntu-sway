@@ -25,5 +25,5 @@ if test "$argv[1]" -eq 0
   end
 else if test "$argv[1]" -eq 1
   brightnessctl get > $curfile
-  brightnessctl set $argv[2] > /dev/null
+  brightnessctl set $argv[2..] > /dev/null
 end

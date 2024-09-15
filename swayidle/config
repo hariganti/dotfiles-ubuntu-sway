@@ -3,7 +3,7 @@
 ################################################################################
 
 ### Timeouts ###
-timeout 120 '$HOME/.config/swayidle/scripts/dim 1 50%-' resume '$HOME/.config/swayidle/scripts/dim 0'
+timeout 120 '$HOME/.config/swayidle/scripts/dim 1 -e 50%-' resume '$HOME/.config/swayidle/scripts/dim 0'
 timeout 300 'swaylock -f -C $HOME/.config/swaylock/idle'
 timeout 360 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
 timeout 600 'systemctl suspend'
