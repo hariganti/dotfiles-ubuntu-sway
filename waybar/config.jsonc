@@ -22,14 +22,6 @@
     "signal": 6,
     "format": "<span color='#ED8796'>{}</span>",
   },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    },
-    "timeout": 30.5
-  },
   "sway/workspaces": {
     "disable-scroll": true    ,
     "all-outputs"   : true    ,
