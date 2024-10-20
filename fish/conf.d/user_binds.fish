@@ -5,10 +5,11 @@
 # \c is control
 # \e is escape/meta/alt
 
-bind \cw 'delete-or-exit'
-bind \cd 'backward-kill-path-component'
-bind \cf 'neofetch; fish_greeting; echo; commandline -f repaint'
-bind \eL 'commandline -f kill-whole-line; pwd; la; echo; commandline -f repaint'
+bind \cw  delete-or-exit
+bind \cd  backward-kill-path-component
+bind \cf  'neofetch; fish_greeting; echo; commandline -f repaint'
+bind \eL  'commandline -f kill-whole-line; pwd; la; echo; commandline -f repaint'
+bind \t   forward-word or complete
 
 # Alt + Backspace
 bind \e\x7F 'backward-kill-line'
