@@ -13,9 +13,9 @@ configuration {
   display-filebrowser:  "FILES";
   display-window:       "WINDOW";
   drun-display-format:  "{name}";
-  kb-cancel:            "Escape,!Super_L,!Super_R";
-  kb-mode-next:         "Tab";
-  kb-mode-previous:     "ISO_Left_Tab";
+  kb-cancel:            "Escape,Super_L,Super_R";
+  kb-mode-next:         "Control+Tab";
+  kb-mode-previous:     "Control+ISO_Left_Tab";
   kb-element-next:      "";
   kb-element-prev:      "";
 }
