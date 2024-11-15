@@ -1,4 +1,4 @@
-### Swaylock(-Effects) User Config ##
+### Swaylock(-Effects) User Config ###
 
 # Background
 image=~/Pictures/nagai_negi/kessoku_band_lockscreen.png
@@ -43,5 +43,5 @@ text-ver-color=8aadf4
 text-wrong-color=ee99a0
 
 # Behavior
-ignore-empty-password
+# ignore-empty-password
 fade-in=1
